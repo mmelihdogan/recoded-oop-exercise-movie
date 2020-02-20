@@ -18,6 +18,14 @@ class APIService {
       .then(json => new Movie(json))
   }
 
+  static fetchActors(movie) {
+    // write code to fetch the actors
+    const url = APIService._constructUrl(`movie/${movieID}/credits`);
+    return fetch(url)
+      .then(res => res.json())
+      .then(json => json.cast.slice(0, 4).map(actor => new actor(actor)))
+  }
+
   static  _constructUrl(path) {
     return `${TMDB_BASE_URL}/${path}?api_key=${atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=')}`
   }
